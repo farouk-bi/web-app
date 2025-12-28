@@ -34,6 +34,8 @@ const registerUser = async (req, res) => {
       role,
     });
     
+   
+    await user.save();
 
     res.status(201).json({
       _id: user._id,

@@ -14,6 +14,7 @@ import TodoListInput from "../../components/inputs/TodoListInput";
 import AddAttachmentsInput from "../../components/inputs/AddAttachmentsInput.jsx";
 
 const CreateTask = () => {
+  console.log("CreateTask component rendering...");
   const navigate = useNavigate();
   const location = useLocation();
   const { taskId } = location.state || {};
@@ -54,72 +55,15 @@ const CreateTask = () => {
     });
   };
 
-  const createTask = async () => {
-    setLoading(true);
+  const createTask = async () => { };
 
-    try {
-      const todolist = taskData.todoChecklists?.map((item) => ({
-        text: item,
-        completed: false,
-      }));
+  const updateTask = async () => { };
 
-      const response = await axiosInstance.post(API_PATHS.TASKS.CREATE_TASK, {
-        ...taskData,
-        dueDate: new Date(taskData.dueDate).toISOString(),
-        todoChecklist: todolist,
-      });
+  const handleSubmit = async (e) => { };
 
-      toast.success("Task created successfully");
-      clearData();
-    } catch (error) {
-      console.error("Error creating task:", error);
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
+  const getTaskDetailsById = async (id) => { };
 
-  };
-
-  const updateTask = async () => {};
-
-  const handleSubmit = async (e) => {
-    setError(null);
-
-    if (!taskData.title.trim()) {
-      setError("Task title is required");
-      return;
-    }
-
-    if (!taskData.description.trim()) {
-      setError("Task description is required");
-      return;
-    }
-
-    if (!taskData.dueDate) {
-      setError("Due date is required");
-      return;
-    }
-
-    if (taskData.assignedTo?.length === 0) {
-      setError("Please assign the task to at least one user");
-      return;
-    }
-
-    if (taskData.todoChecklists?.length === 0) {
-      setError("Please add at least one TODO checklist item");
-      return;
-    }
-
-    if (taskId) {
-      updateTask();
-      return;
-    }
-    createTask();
-  };
-
-  const getTaskDetailsById = async (id) => {};
-
-  const deleteTask = async () => {};
+  const deleteTask = async () => { };
   return (
     <DashboardLayout activeMenu="Create Task">
       <div className="mt-5">
@@ -230,18 +174,6 @@ const CreateTask = () => {
                   handleValueChange("attachments", value)
                 }
               />
-            </div>
-            {error && (
-              <p className="text-xs font-medium text-red-500 mt-5">{error}</p>
-            )}
-            <div className="flex justify-end mt-7">
-              <button
-                className="add-btn"
-                onClick={handleSubmit}
-                disabled={loading}
-              >
-                {taskId ? "Update Task" : "Create Task"}
-              </button>
             </div>
           </div>
         </div>

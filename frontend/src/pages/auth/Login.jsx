@@ -11,7 +11,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('null');
+    const [error, setError] = useState('');
     const { updateUser } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Login = () => {
             });
             const { token, role } = response.data;
             if (token) {
-                localStorage.setItem('token', token);
+                localStorage.setItem('Token', token);
                 updateUser(response.data);
 
 

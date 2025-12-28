@@ -55,7 +55,7 @@ const Signup = () => {
       const { token, role } = response.data;
 
       if (token) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("Token", token);
         updateUser(response.data);
         //redirect hasb role
         if (role === 'admin') {

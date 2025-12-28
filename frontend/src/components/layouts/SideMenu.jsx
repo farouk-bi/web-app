@@ -35,11 +35,21 @@ const SideMenu = ({ activeMenu }) => {
         <div className="w-64 h-[calc(100vh-61px)] bg-white border—r border-gray-200/50 sticky top-[61px] z-20'">
           <div className="flex flex-col items-center justify-center mb-7 pt-5">
             <div className="relative">
-              <img
-                src={user?.profileImageUrl || ""}
-                alt="Profile Image"
-                className="w—20 h—20 n bg—slate—400 rounded—full'"
-              />
+              {user?.profileImageUrl ? (
+                <img
+                  src={user.profileImageUrl.replace('localhost:8000', 'localhost:5000')}
+                  alt="Profile Image"
+                  className="w-20 h-20 bg-slate-400 rounded-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    const fallback = e.target.nextElementSibling;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div className="w-20 h-20 bg-slate-400 rounded-full flex items-center justify-center text-white font-medium" style={{ display: user?.profileImageUrl ? 'none' : 'flex' }}>
+                {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
             </div>
     
             {user?.role === "admin" && (
